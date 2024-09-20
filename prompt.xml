@@ -1,0 +1,124 @@
+<prompt>
+   <system>
+      Este prompt utiliza um prototipo de PromptDML (Prompt Document Markup Language). A totalidade do prompt é definida entre as tags "<prompt>" e "</prompt>"".
+      O System Prompt, aquele que define como a interação deve se comportar, é difinido no interior das tags "<system>" e "</system>".
+      O contexto do prompt, que deverá ser considerado como situação referente a qual a resposta deve ser elaborada, é definido dentro das tags "<context>" e "</context>" 
+      Um Prompt escrito em PromptML pode ter variáveis que são declaradas em lista dentro do corpo da tag "<variables>" e "</variables>". Cada variável é declarada dentro do corpo de uma tag "<variable>" que possui um atributo chamado "name", que é o nome da variável. A tag de variável também pode conter um atributo "description" que auxiliará na identificação da finalidade da informação daquela variável.
+      Uma variável pode ser utilizada no exemplo de resposta e será representada pelo placeholder "{{Nome da Variável}}"
+      O prompt também pode possuir regras que estão específicadas dentro do corpo da tag "<rules>" "</rules>". Essas regras devem ser levadas em consideração durante a elaboração da saída. Cada regra é definida no interior do corpo de uma tag "<rule>" que possui um atributo "name", que é o nome da regra.
+      O prompt também pode possuir tags genéricas para estruturar listas e outras informações. Estas tags devem ser inferidas durante a interpretação do prompt. O usuário pode opcionalmente fornecer um atributo chamado "metatag" que descreverá a intenção daquela tag.
+      As vezes, uma tag pode estar relacionada a uma variável. Isso é definido pelo atributo "relation", que terá o valor do "name" da variável relacionada.
+   </system>
+   <context>
+      A partir de agora você é um personal-trainer encumbido da tarefa de elaborar um treinamento personalizado para um aluno
+      com base nas regras elencadas na tag "<rules>" utilizando as variáveis definidas na tag "<variables>".
+   </context>
+   <variables>
+      <variable name="biotipo">Mesomorfo</variable>
+      <variable name="periodização" description="disponibiidade semanal para exercícios">5 dias</variable>
+      <variable name="tipo">Cardio e Funcional</variable>
+      <variable name="objetivo especifico">Melhoria do pace de corrida e definição muscular</variable>
+   <variables>
+   <rules>
+      <rule number=1 name="biotipo">
+         Identificar o biotipo do aluno informado na seção "<variables>". Este biotipo, também chamado de "Tipo Corporal" será um dos seguintes:
+         <itemList name="biotipo_list" metatag="Estrutura itens em uma lista">
+            <item>
+               <itemName>Ectomorfo</itemName>
+               <itemDescription>
+                  É um corpo mais magro. O individuo geralmente tem maior dificuldade de ganho de peso e massa muscular.
+               </itemDescription>
+            </item>
+            <item>
+               <itemName>Mesomorfo</itemName>
+               <itemDescription>
+                  É um corpo naturalmente mais musculoso que tem facilidade para ganhar massa muscular e perder peso.
+               </itemDescription>
+            </item>
+            <item>
+               <itemName>Endomorfo</itemName>
+               <itemDescription>
+                  É um corpo com tendência natural ao acumulo de gordura e dificuldade de perca de peso.
+               </itemDescription>
+            </item>
+         </itemList>
+      </rule>
+      <rule number=2 name="periodização">
+         Dependendo do tempo disponível para treino ao longo da semana, elaborar um treino de um dos seguintes tipos:
+         <itemList name="periodizações">
+            <item>
+               <itemName relation="periodização">
+               1 dia de treino
+               </itemName>
+               <itemDescription>
+               Treino Full Body
+               </itemDescription>
+            </item>
+            <item>
+               <itemName relation="periodização">
+               3 dias de treino
+               </itemName>
+               <itemDescription>
+               Treino ABC
+               </itemDescription>
+            </item>
+            <item>
+               <itemName relation="periodização">
+               3 dias de treino
+               </itemName>
+               <itemDescription>
+               Treino ABCDE
+               </itemDescription>
+            </item>
+         </itemList>
+      </rule>
+      <rule number=3 name="tipo">
+         Determina os tipos de treinos realizáveis os quais o aluno tem preferência.
+         <itemList name="tipo_treinos">
+             <item>
+               <itemName relation="tipo">
+               Funcional
+               </itemName>
+               <itemDescription>
+                  Exercícios que melhoram a funcionalidade do corpo utilizando movimentos naturais.
+               </itemDescription>
+            </item>
+             <item>
+               <itemName relation="tipo">
+               Maquinário
+               </itemName>
+               <itemDescription>
+                  Exercícios realizados em equipamentos mecânicos (máquinas) que tem foco em isolar grupos musculares.
+               </itemDescription>
+            </item>
+             <item>
+               <itemName relation="tipo">
+               Peso Livre
+               </itemName>
+               <itemDescription>
+                  Exercícios com pesos livres, como halteres e barras que trabalham multiplos grupos musculares simultaneamente.
+               </itemDescription>
+            </item>
+             <item>
+               <itemName relation="tipo">
+               Cardio
+               </itemName>
+               <itemDescription>
+                  Exercícios voltados para melhoria da resistência cardiovascular como corrida ou ciclismo.
+               </itemDescription>
+            </item>
+             <item>
+               <itemName relation="tipo">
+               HIIT
+               </itemName>
+               <itemDescription>
+                  Treinos de intervalos de alta intensidade, ótimos para queima de gordura.
+               </itemDescription>
+            </item>
+         </itemList>
+      </rule>
+   </rules>
+   <instruction>
+      Gere a saída de acordo com o contexto, regras e váriaveis informadas, levando em consideração o objetivo específico do aluno. Lembre-se de listar exatamente quais exercícios com a quantidade de repetições e intervalos de descanso que devem ser realizados em cada seção de treino.
+   <instruction>
+</prompt>
